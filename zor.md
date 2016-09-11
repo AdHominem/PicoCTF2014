@@ -21,7 +21,34 @@ I think about brute forcing the key. Using sys.getsizeof(), it seems the size of
 
 It turns out that Python just stores integers as objects, yielding a larger memory allocation. The values themselves tho remain in the usual range, that is 8b for an integer. That is just 256 possible keys! 
 
-I write a script to brute force the encrypted file, comparing the result of each iteration with the standard wordlist to filter out gibberish results.
+I write a script to brute force the encrypted file, comparing the result of each iteration with the standard wordlist to filter out gibberish results:
+
+```python
+import sys
+
+input_data = open(sys.argv[1], 'r').read()
+wordlist = open('/usr/share/dict/american-english', 'r').read()
+
+
+def brute():
+	for integer in range(256):
+		result = xor(input_data, integer)
+		for word in result.split(' '):
+			if word != "" and word in wordlist:
+				print(result + "\n")
+				break
+
+
+def xor(input_data, key):
+    result = ""
+    for ch in input_data:
+        result += chr(ord(ch) ^ key)
+
+    return result
+
+
+brute()
+```
 
 ## **Solution**
 
