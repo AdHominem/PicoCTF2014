@@ -1,12 +1,12 @@
-**Problem Set**
+## **Problem Set**
 
 I am given both an encrypted file and the crypto program written in Python.
 
-**Attempts**
+## **Attempts**
 
 1. After browsing the code it becomes clear that the encrypt function has a flaw:
 
-```
+```python
 def encrypt(input_data, password):
     key = 0
     for ch in password:
@@ -23,6 +23,6 @@ It turns out that Python just stores integers as objects, yielding a larger memo
 
 3. I write a script to brute force the encrypted file, comparing the result of each iteration with the standard wordlist to filter out gibberish results.
 
-**Solution**
+## **Solution**
 
 Using my brute force script, the clear text message appears among the results. The flag is c79915c9dc408440dd00c9b317a68a
