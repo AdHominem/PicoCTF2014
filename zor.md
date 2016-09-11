@@ -4,7 +4,7 @@ I am given both an encrypted file and the crypto program written in Python.
 
 ## **Attempts**
 
-- After browsing the code it becomes clear that the encrypt function has a flaw:
+After browsing the code it becomes clear that the encrypt function has a flaw:
 
 ```python
 def encrypt(input_data, password):
@@ -17,11 +17,11 @@ def encrypt(input_data, password):
 
 The key is repeatedly xored, but its size remains the same.
 
-- I think about brute forcing the key. Using sys.getsizeof(), it seems the size of key is 24B, which seems too large.
+I think about brute forcing the key. Using sys.getsizeof(), it seems the size of key is 24B, which seems too large.
 
-It turns out that Python just stores integers as objects, yielding a larger memory allocation. The values itself tho remain in the usual range, that is 8b for an integer. That is just 256 possible keys! 
+It turns out that Python just stores integers as objects, yielding a larger memory allocation. The values themselves tho remain in the usual range, that is 8b for an integer. That is just 256 possible keys! 
 
-- I write a script to brute force the encrypted file, comparing the result of each iteration with the standard wordlist to filter out gibberish results.
+I write a script to brute force the encrypted file, comparing the result of each iteration with the standard wordlist to filter out gibberish results.
 
 ## **Solution**
 
