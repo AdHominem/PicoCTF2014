@@ -14,12 +14,7 @@ def encrypt(input_data, password):
 
     return xor(input_data, key)
 ```
-
-The key is repeatedly xored, but its size remains the same.
-
-I think about brute forcing the key. Using sys.getsizeof(), it seems the size of key is 24B, which seems too large.
-
-It turns out that Python just stores integers as objects, yielding a larger memory allocation. The values themselves tho remain in the usual range, that is 8b for an integer. That is just 256 possible keys! 
+For each password character, the key is repeatedly xored with the character value times 2 plus 3. Since the highest charcater value you can produce in ASCII is '~' = 126, the highest possible xor value is 255. This also means that whatever key is eventually used, he is no longer than 255 aka one byte.
 
 I write a script to brute force the encrypted file, comparing the result of each iteration with the standard wordlist to filter out gibberish results:
 
@@ -49,6 +44,8 @@ def xor(input_data, key):
 
 brute()
 ```
+
+Note that an easier solution would have been using Python's string.printable.
 
 ## **Solution**
 
