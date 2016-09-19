@@ -14,10 +14,12 @@ d = 0x496747c7dceae300e22d5c3fa7fd1242bda36af8bc280f7f5e630271a92cbcbeb7ae04132a
 
 and ciphertext.txt:
 
-```
+```gedit 
 58ae101736022f486216e290d39e839e7d02a124f725865ed1b5eea7144a4c40828bd4d14dcea967561477a516ce338f293ca86efc72a272c332c5468ef43ed5d8062152aae9484a50051d71943cf4c3249d8c4b2f6c39680cc75e58125359edd2544e89f54d2e5cbed06bb3ed61e5ca7643ebb7fa04638aa0a0f23955e5b5d9
 ```
 
-Since the title says RSA, the key_data file seems to contain the RSA data, two prime numbers p and q and the RSA number e plus its multiplicative inverse d. N could be the product of p and q, that's what I check first using Python. This seems to be true, so N is actually redundant. Since in RSA encryption is done by taking the modulus of n of message^d
+Since the title says RSA, the key_data file seems to contain the RSA data, two prime numbers p and q and the RSA number e plus its multiplicative inverse d. N could be the product of p and q, that's what I check first using Python. This seems to be true, so N is actually redundant. Since in RSA encryption is done by taking the modulus of n of ciphertext^d, I need to use some fast exponentiation algorithm to solve for the plain text message.
+After a while I figure the Python pow() function can take 3 parameters a,b,c and is then evaluated a^b % c, using fast exponentiation. Using this, I get `6861258080156838161702842331923358676171560876407473046529829839343656597465212914039681453600936115970901835821496646686989354106193309238635902806952707316468225954530890939348472370864299291305467697683712618633711800447421650242202732` which in hex is `0x436f6e67726174756c6174696f6e73206f6e2064656372797074696e6720616e20525341206d6573736167652120596f757220666c6167206973206d6f64756c61725f61726974686d65746963735f6e6f745f736f5f6261645f61667465725f616c6c`. Using the str.decode("hex") function, I get the plain text flag.
 
 ## **Solution**
+The flag is `modular_arithmetics_not_so_bad_after_all`.
